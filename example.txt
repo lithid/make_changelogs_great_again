@@ -1,2 +1,2 @@
 add first line
-add second line
+add second line with more information
