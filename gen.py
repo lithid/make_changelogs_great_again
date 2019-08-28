@@ -11,6 +11,7 @@ class Gen:
         sections = {}
 
         command_value = ""
+        delimiter = "@"
         if kind == "-c" or kind == "--commit":
             command_value = "%s^..HEAD" % commit
             output = subprocess.check_output(["git", "log", "%s^..HEAD" % commit])
@@ -27,7 +28,7 @@ class Gen:
             if value.startswith("Author:"):
                 author = "(%s)" % value.replace("Author:", "").strip()
 
-            if value.startswith("#"):
+            if value.startswith(delimiter):
                 name = value.split(" ")[0]
                 content = value.replace(name, "").strip()
 
@@ -44,7 +45,7 @@ class Gen:
 
         print "## %s (%s) - %s" % (version, build, time.strftime("%d-%m-%Y"))
         for something in sections:
-            print "### %s" % something.replace("#", "")
+            print "### %s" % something.replace(delimiter, "")
             for another in sections[something]:
                 print "- %s" % another
             print ""
